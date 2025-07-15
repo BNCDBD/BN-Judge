@@ -39,7 +39,7 @@ int main(){
 			file.close();
 			shared_lock<shared_timed_mutex> lock(mtx);
 			file.open("JudgeQueue.txt",ios::in|ios::binary);
-			Sleep(200);
+			Sleep(500);
 			continue;
 		}
 		string S;
@@ -55,8 +55,9 @@ int main(){
 		string STRI="del flag"+S;
 		system(STRI.c_str());
 		catchres("sysTestResult.log");
-		cout<<"\n"<<s1<<".cpp: Time: "<<tim<<" ms   Score: "<<sc<<" pts.\n\nDetail:\n";
-		system("more TestLog.log");
+		cout<<"\n"<<s1<<".cpp: Time: "<<tim<<" ms   Score: "<<sc<<" pts.\n\n";
+//		Sleep(500);
+//		system(("more Records\\record"+S+".log").c_str());
 	}
 	return 0;
 }
