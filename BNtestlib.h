@@ -13,7 +13,6 @@ namespace BN_lib{
 		_tle=2,
 		_re=3,
 		_mle=4,
-		_dpe=5,
 		_ce=6,
 		_se=7,
 		_uac=8,
@@ -49,7 +48,7 @@ namespace BN_lib{
 	void setfile(std::string signal_file,std::string result_file){
 		sigfile=signal_file;
 		resfile=result_file;
-		f1.open(sigfile,std::ios::out|std::ios::binary);
+		f1.open(sigfile,std::ios::out|std::ios::app|std::ios::binary);
 		f2.open(resfile,std::ios::out|std::ios::binary);
 	}
 	void delfile(){
@@ -97,10 +96,6 @@ namespace BN_lib{
 				f1<<"Memory Limit Exceeded. Time: "<<time<<" ms. Score: "<<score<<". ";
 				setcolor(light_gray);
 				f2<<time<<' '<<score;
-				break;
-			case 5:
-				setcolor(dark_gray);
-				f1<<"Data Path Error. ";
 				break;
 			case 6:
 				setcolor(yellow);
