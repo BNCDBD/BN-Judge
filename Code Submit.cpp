@@ -12,13 +12,14 @@ int main(){
 	cout<<"Use path mode(\"Yes\" or \"No\"):";
 	string choice;
 	cin>>choice;
+	cout<<"Problem:";
+	cin>>problem;
 	if(choice=="Yes"){
 		cout<<"file path:";
+		getchar();
 		getline(cin,file);
 		file=file.substr(0,file.size()-4);
 	}else{
-		cout<<"Problem:";
-		cin>>problem;
 		cout<<"Source code:(enter Ctrl+Z to stop)\n";
 		fstream maincpp;
 		maincpp.open("Main.cpp",ios::out|ios::binary);
