@@ -12,11 +12,11 @@ using namespace BN_lib;
 
 
 //Change file here!(for debug only)
-string FILENAME="code";//file name
-string CPP_FILE="code.cpp";//.cpp file
-string EXE_FILE="code.exe";//.exe file
-string PROBLEM="canvas";//path of input files and answer files
-string EXE_CODE="code.exe < Input.in > Output.out";//execute command
+string FILENAME="Main";//file name
+string CPP_FILE="Main.cpp";//.cpp file
+string EXE_FILE="Main.exe";//.exe file
+string PROBLEM="helloworld";//path of input files and answer files
+string EXE_CODE="Main.exe < Input.in > Output.out";//execute command
 
 
 //const char* Code="\"C:\\Program Files (x86)\\Dev-Cpp\\MinGW64\\bin\\g++.exe\" \"C:\\Users\\Administrator\\Desktop\\Mine\\Projects\\System Projects\\Test - Program Judge\\code.cpp\" -o \"C:\\Users\\Administrator\\Desktop\\Mine\\Projects\\System Projects\\Test - Program Judge\\code.exe\" -g3 -std=c++11 -I\"C:\\Program Files (x86)\\Dev-Cpp\\MinGW64\\include\" -I\"C:\\Program Files (x86)\\Dev-Cpp\\MinGW64\\x86_64-w64-mingw32\\include\" -I\"C:\\Program Files (x86)\\Dev-Cpp\\MinGW64\\lib\\gcc\\x86_64-w64-mingw32\\4.9.2\\include\" -I\"C:\\Program Files (x86)\\Dev-Cpp\\MinGW64\\lib\\gcc\\x86_64-w64-mingw32\\4.9.2\\include\\c++\" -L\"C:\\Program Files (x86)\\Dev-Cpp\\MinGW64\\lib\" -L\"C:\\Program Files (x86)\\Dev-Cpp\\MinGW64\\x86_64-w64-mingw32\\lib\" -static-libgcc -g3";
@@ -124,7 +124,7 @@ signed main(int argc,char** argv){
 	}
 	cout<<"record "<<COUNT<<": starting\n";
 	string SSS,SSS_src;
-	setfile("TestLog.log","sysTestResult.log");
+//	setfile("sigfile.log","sysTestResult.log");
 	if(argc>=7&&argv[6][0]=='N'){
 		
 	}else{
@@ -137,25 +137,39 @@ signed main(int argc,char** argv){
 	}
 	string _COMMAND_;
 	if(c=='Y'){
-		_COMMAND_="Stdc++Files\\bin\\g++.exe Main.cpp -o Main.exe -g3 -O2 -std=c++14 -I\"C:\\Program Files (x86)\\Dev-Cpp\\MinGW64\\include\" -I\"C:\\Program Files (x86)\\Dev-Cpp\\MinGW64\\x86_64-w64-mingw32\\include\" -I\"C:\\Program Files (x86)\\Dev-Cpp\\MinGW64\\lib\\gcc\\x86_64-w64-mingw32\\4.9.2\\include\" -I\"C:\\Program Files (x86)\\Dev-Cpp\\MinGW64\\lib\\gcc\\x86_64-w64-mingw32\\4.9.2\\include\\c++\" -L\"C:\\Program Files (x86)\\Dev-Cpp\\MinGW64\\lib\" -L\"C:\\Program Files (x86)\\Dev-Cpp\\MinGW64\\x86_64-w64-mingw32\\lib\" -static-libgcc -g3";
+		_COMMAND_="Stdc++Files\\bin\\g++.exe Main.cpp -o Main.exe -O2 -std=c++14";
 	}else{
-		_COMMAND_="Stdc++Files\\bin\\g++.exe Main.cpp -o Main.exe -g3 -std=c++14 -I\"C:\\Program Files (x86)\\Dev-Cpp\\MinGW64\\include\" -I\"C:\\Program Files (x86)\\Dev-Cpp\\MinGW64\\x86_64-w64-mingw32\\include\" -I\"C:\\Program Files (x86)\\Dev-Cpp\\MinGW64\\lib\\gcc\\x86_64-w64-mingw32\\4.9.2\\include\" -I\"C:\\Program Files (x86)\\Dev-Cpp\\MinGW64\\lib\\gcc\\x86_64-w64-mingw32\\4.9.2\\include\\c++\" -L\"C:\\Program Files (x86)\\Dev-Cpp\\MinGW64\\lib\" -L\"C:\\Program Files (x86)\\Dev-Cpp\\MinGW64\\x86_64-w64-mingw32\\lib\" -static-libgcc -g3";
+		_COMMAND_="Stdc++Files\\bin\\g++.exe Main.cpp -o Main.exe -std=c++14";
 	}
-	sigprint("Problem: "+PROBLEM+(c=='Y'?"  O2: Yes":"  O2: No"));
+//	sigprint("Problem: "+PROBLEM+(c=='Y'?"  O2: Yes":"  O2: No"));
 	cout<<"Compiling....\n\n";
 	cout<<"Compile Code: \n"<<_COMMAND_<<"\n\n";
 	
 	string __COMMAND_="del "+EXE_FILE;
 	system(__COMMAND_.c_str());
-	freopen(sigfile.c_str(),"w",stderr);
+//	delfile();
+	freopen("sigfile.log","w",stderr);
+	cerr<<("Problem: "+PROBLEM+(c=='Y'?"  O2: Yes":"  O2: No"))<<endl;
 	system(_COMMAND_.c_str());
 	fclose(stderr);
+	setfile("sigfile.log","sysTestResult.log");
 	if(!exists(EXE_FILE)){
 		resprint(_ce,"",0,0,0);
-		system("pause");
+		if(argc>=5){
+			if(argv[4][0]!='N')system("pause");
+		}else{
+			system("pause");
+		}
 		fclose(stdin);
 		fclose(stdout);
 		delfile(); 
+		if(argc<7){
+			filecpy("sigfile.log",SSS);
+			filecpy("Main.cpp",SSS_src);
+		}else if(argv[6][0]!='N'){
+			filecpy("sigfile.log",SSS);
+			filecpy("Main.cpp",SSS_src);
+		}
 		return 0;
 	}else{
 		setcolor(GREEN);
@@ -192,8 +206,16 @@ signed main(int argc,char** argv){
 			if(JudgeType==1)dataFile>>task[i];
 			if(!exists(inpath[i])||
 			!exists(anspath[i])){
-				resprint(_dpe,"Judge Terminated. ",0,0,0);
+				if(!exists(inpath[i]))resprint(_se,"File \""+inpath[i]+"\" not found. Judge Terminated. ",0,0,0);
+				else if(!exists(anspath[i]))resprint(_se,"File \""+anspath[i]+"\" not found. Judge Terminated. ",0,0,0);
 				delfile(); 
+				if(argc<7){
+					filecpy("sigfile.log",SSS);
+					filecpy("Main.cpp",SSS_src);
+				}else if(argv[6][0]!='N'){
+					filecpy("sigfile.log",SSS);
+					filecpy("Main.cpp",SSS_src);
+				}
 				return 255;
 			}
 		}
@@ -226,8 +248,8 @@ signed main(int argc,char** argv){
 			system(STR.c_str()); 
 			double s=clock(),e;
 			int return_num=system(EXE_CODE.c_str());
-			//¶Î´íÎó£º-1073741819
-			//³ýÒÔ0£º-1073741676 
+			//æ®µé”™è¯¯ï¼š-1073741819
+			//é™¤ä»¥0ï¼š-1073741676 
 	        e=clock();
 	        system("taskkill /F -im Judge_Helper.exe");
 			double time=e-s;
@@ -340,11 +362,18 @@ signed main(int argc,char** argv){
 		}
 	}else{
 		setcolor(DARK_GRAY);
-		cout<<"\nNo TestData.\nJudge Terminated.\n";
+		resprint(_se,"No testdata. Judge Terminated.\n",0,0,0);
 		setcolor(LIGHT_GRAY);
 		fclose(stdin);
 		fclose(stdout);
 		delfile(); 
+		if(argc<7){
+			filecpy("sigfile.log",SSS);
+			filecpy("Main.cpp",SSS_src);
+		}else if(argv[6][0]!='N'){
+			filecpy("sigfile.log",SSS);
+			filecpy("Main.cpp",SSS_src);
+		}
 		return 255;
 	}
 	if(argc>=5){
@@ -354,14 +383,13 @@ signed main(int argc,char** argv){
 	}
 	delfile(); 
 	if(argc<7){
-		filecpy("TestLog.log",SSS);
+		filecpy("sigfile.log",SSS);
 		filecpy("Main.cpp",SSS_src);
 	}else if(argv[6][0]!='N'){
-		filecpy("TestLog.log",SSS);
+		filecpy("sigfile.log",SSS);
 		filecpy("Main.cpp",SSS_src);
 	}
 	fclose(stdin);
 	fclose(stdout);
 	return 0;
 }
-
