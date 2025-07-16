@@ -97,6 +97,8 @@ int main(){
 	system("cls");
 	string command="more Records\\record"+SS+".log";
 	system(command.c_str());
+	cout<<"Source Code:\n";
+	system(("more Records\\record"+SS+"_source.cpp").c_str()); 
 	system("pause");
 	return 0;
 }
