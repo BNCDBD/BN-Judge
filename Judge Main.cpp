@@ -15,7 +15,7 @@ using namespace BN_lib;
 string FILENAME="Main";//file name
 string CPP_FILE="Main.cpp";//.cpp file
 string EXE_FILE="Main.exe";//.exe file
-string PROBLEM="helloworld";//path of input files and answer files
+string PROBLEM="lgP1731";//path of input files and answer files
 string EXE_CODE="Main.exe < Input.in > Output.out";//execute command
 
 
